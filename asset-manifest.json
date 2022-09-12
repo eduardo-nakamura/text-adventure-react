@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/text-adventure-react/static/css/main.42ce7fc7.css",
+    "main.js": "/text-adventure-react/static/js/main.c0b87567.js",
+    "static/js/787.f8edd15d.chunk.js": "/text-adventure-react/static/js/787.f8edd15d.chunk.js",
+    "static/media/ModernDOS8x16.ttf": "/text-adventure-react/static/media/ModernDOS8x16.e5c5b18d17c72722b8f3.ttf",
+    "index.html": "/text-adventure-react/index.html",
+    "main.42ce7fc7.css.map": "/text-adventure-react/static/css/main.42ce7fc7.css.map",
+    "main.c0b87567.js.map": "/text-adventure-react/static/js/main.c0b87567.js.map",
+    "787.f8edd15d.chunk.js.map": "/text-adventure-react/static/js/787.f8edd15d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42ce7fc7.css",
+    "static/js/main.c0b87567.js"
+  ]
+}
