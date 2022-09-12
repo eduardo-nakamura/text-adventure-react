@@ -2,6 +2,9 @@
 
 You can download the react project or visit the link [https://eduardo-nakamura.github.io/text-adventure-react](https://eduardo-nakamura.github.io/text-adventure-react)
 
+## How to Play
+This game is based on old school Text Adventure Games from the 70s and 80's. To play you just type the command you want to do and press enter. If possible, you will execute the command. If you type the command and the text doesn't show, try clicking in the game screen and typing again.
+
 ## Available Scripts
 
 In the project directory, you can run:
