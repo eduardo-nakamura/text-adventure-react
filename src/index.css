@@ -1,13 +1,39 @@
+@font-face {
+  font-family: 'ModernDOS8x16';
+  src: local('ModernDOS8x16'), url(./assets/ModernDOS8x16.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Commodore64';
+  src: local('Commodore64'), url(./assets/ModernDOS8x16.ttf) format('truetype');
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'ModernDOS8x16', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;  
+  -moz-osx-font-smoothing: grayscale;  
+  font-size: 20px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.anim{
+  animation: mymove 0.5s infinite;
+  font-weight: bolder;
+}
+.container{
+  padding: 5px 15px 0;
+}
+.container p{
+  padding: 0;
+  margin:5px 0;
+}
+
+@keyframes mymove {
+  0% {opacity:1}
+  50% {opacity: 0;}
+  100% {opacity:1}
 }
