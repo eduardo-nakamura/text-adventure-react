@@ -1,16 +1,24 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react'
 import { dungeon } from "../src/assets/mock"
+import westRoomImg from "../src/assets/west_room_sheet.png"
+import eastRoomImg from "../src/assets/east_room_sheet.png"
+import centerRoomImg from "../src/assets/center_room_sheet.png"
 
 import './App.css';
 
 const themes = [
-  { screen: 'black', font: '#7ef25e', border: '0px', size: '20px', fam: 'ModernDOS8x16' },
-  { screen: 'black', font: 'white', border: '0px', size: '20px', fam: 'ModernDOS8x16' },
-  { screen: '#362a84', font: '#867ade', border: '15px', size: '25px', fam: 'Commodore-64-v6.3' },
-  { screen: 'white', font: 'black', border: '0px', size: '20px', fam: 'ModernDOS8x16' }
+  { screen: 'black', font: '#7ef25e', border: '0px', size: '20px', fam: 'ModernDOS8x16', yPos: '0px' },
+  { screen: 'black', font: 'white', border: '0px', size: '20px', fam: 'ModernDOS8x16', yPos: '-400px' },
+  { screen: '#362a84', font: '#867ade', border: '15px', size: '25px', fam: 'Commodore-64-v6.3', yPos: '-800px' },
+  { screen: 'white', font: 'black', border: '0px', size: '20px', fam: 'ModernDOS8x16', yPos: '-1204px' }
 ]
 
+const imgArr = [
+  { img: westRoomImg },
+  { img: eastRoomImg },
+  { img: centerRoomImg },
+]
 const emptyLine = ''
 
 function App() {
@@ -48,7 +56,7 @@ function App() {
   }, [time]);
 
   function handleKeyPress(e: any) {
-    if (e.key === 'Enter') {      
+    if (e.key === 'Enter') {
       setActionRes(oldArray => [...oldArray, `> ${action}`]);
       getOneCommand()
       setAction('')
@@ -68,6 +76,8 @@ function App() {
       inputRef.current.focus();
     }
   }
+
+
 
   function commandSplit(str: string) {
     var parts = str.split(" ");
@@ -97,12 +107,13 @@ function App() {
             endGame()
           } else {
             newActionRes = `You can't use ${matches} here`
+            setActionRes([newActionRes]);
           }
           // location === 'east room' ? true : false
           break;
         default:
           newActionRes = `You can't use ${obj} here`
-          setActionRes(oldArray => [...oldArray, newActionRes]);
+          setActionRes([newActionRes]);
           break;
       }
     } else if (obj === 'gate') {
@@ -164,7 +175,8 @@ function App() {
     }
 
     newActionRes.push(emptyLine)
-    setActionRes(oldArray => [...oldArray, ...newActionRes]);
+    // setActionRes(oldArray => [...oldArray, ...newActionRes]);
+    setActionRes(newActionRes);
   }
 
   function getLocation(locationName: string) {
@@ -183,6 +195,32 @@ function App() {
         break;
     }
     return getLoc
+  }
+
+  function setXPos() {
+    let xPos = '0px'   
+    switch (location) {
+      case 'west room':
+        if(room.contents.length === 0){
+          xPos = '-1800px'
+        } else if (room.contents.length === 1){
+          const matches = room.contents.find(s => s.includes('pail'));
+          xPos = matches ? '-600px' : '-1200px'
+        } 
+        break;
+      case 'centre room':
+        if(room.contents.length === 0){
+          xPos = '-1800px'
+        } else if (room.contents.length === 1){
+          const matches = room.contents.find(s => s.includes('spiral'));
+          xPos = matches ? '-600px' : '-1200px'
+        } 
+        break;
+      case 'east room':
+        xPos = running ? '0px' : '-600px'
+        break;
+    }
+    return xPos
   }
 
   function getOneCommand() {
@@ -222,7 +260,9 @@ function App() {
           // eslint-disable-next-line array-callback-return
           room.contents.map((item: string) => {
             let matches = item.search(obj);
-            if (matches === 0) {
+         
+            if (matches !== -1) {
+              
               newActionRes.push(`You pick up the ${item}`)
               itemUpdate.push(item)
               setScore(score + 10)
@@ -230,10 +270,12 @@ function App() {
             }
             setDungeonObj(updateDungeon)
             setPlayer((prevState) => ({ ...prevState, inventory: itemUpdate }));
+          
           })
         }
         newActionRes.push(emptyLine)
-        setActionRes(oldArray => [...oldArray, ...newActionRes]);
+        // setActionRes(oldArray => [...oldArray, ...newActionRes]);
+        setActionRes(newActionRes);
         break;
       case 'east':
       case 'west':
@@ -264,7 +306,8 @@ function App() {
         tryToUse(obj);
         break;
       default:
-        if (action) setActionRes(oldArray => [...oldArray, `You can't ${action}`]);
+        // if (action) setActionRes(oldArray => [...oldArray, `You can't ${action}`]);
+        if (action) setActionRes([`You can't ${action}`]);
         break;
     }
   }
@@ -279,10 +322,31 @@ function App() {
         <p>{`Simple text adventure - by Eduardo Issamu Nakamura - ${currentDate.getFullYear()}`}</p>
         <p style={{ paddingBottom: '20px' }}>{`Original project by Dethe Elza`} <a style={{ color: themes[theme].font }} href="https://hackmd.io/@dethe/r1eH-CMdS#Goal">https://hackmd.io/@dethe/r1eH-CMdS#Goal</a></p>
 
-        {actionRes.slice(-20).map((row, index) => (
+
+        <div
+          className="img-room"
+          style={{
+            borderColor: themes[theme].font,
+            backgroundImage: `url(${imgArr[getLocation(location)].img})`,
+            imageRendering: 'pixelated',
+            backgroundPositionY: themes[theme].yPos,
+            backgroundPositionX: setXPos(),
+          }}
+        />
+        {/* {room.contents.length}
+        {imgArr[getLocation(location)].img} */}
+        {/* {location === 'west room' && (
+          <img className='img-room' src={room.contents.length ? westRoomImg : westRoomEmptyImg} alt="" />
+        )}
+        {location === 'east room' && (
+          <img className='img-room' src={running ? eastRoomImg : eastRoomEmptyImg} alt="" />
+        )}
+        {location === 'centre room' && (
+          <img className='img-room' src={room.contents.length ? centerRoomImg : centerRoomEmptyImg} alt="" />
+        )} */}
+        {actionRes.map((row, index) => (
           <p key={index} style={{ margin: '10px 0 10px' }}>{row}</p>
         ))}
-
         {running && (
           <>
             <p>{'> '}{action}<span className='anim'>_</span></p>

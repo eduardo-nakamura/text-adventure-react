@@ -5,6 +5,9 @@ You can download the react project or visit the link [https://eduardo-nakamura.g
 ## How to Play
 This game is based on old school Text Adventure Games from the 70s and 80's. To play you just type the command you want to do and press enter. If possible, you will execute the command. If you type the command and the text doesn't show, try clicking in the game screen and typing again.
 
+## Credits and Thanks
+Original project by [Dethe Elza](https://hackmd.io/@dethe/r1eH-CMdS#Simple-Text-Adventure)
+
 ## Available Scripts
 
 In the project directory, you can run:
