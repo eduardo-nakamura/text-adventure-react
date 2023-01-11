@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/text-adventure-react/static/css/main.2eab8f6c.css",
-    "main.js": "/text-adventure-react/static/js/main.eb205082.js",
+    "main.css": "/text-adventure-react/static/css/main.d984414a.css",
+    "main.js": "/text-adventure-react/static/js/main.f5fd32cf.js",
     "static/js/787.f8edd15d.chunk.js": "/text-adventure-react/static/js/787.f8edd15d.chunk.js",
     "static/media/east_room_sheet.png": "/text-adventure-react/static/media/east_room_sheet.7ac64eab44f1fc422f78.png",
     "static/media/west_room_sheet.png": "/text-adventure-react/static/media/west_room_sheet.89b840379ff928ca4ec2.png",
     "static/media/center_room_sheet.png": "/text-adventure-react/static/media/center_room_sheet.3e5af42476f73227e8d8.png",
     "static/media/ModernDOS8x16.ttf": "/text-adventure-react/static/media/ModernDOS8x16.e5c5b18d17c72722b8f3.ttf",
     "index.html": "/text-adventure-react/index.html",
-    "main.2eab8f6c.css.map": "/text-adventure-react/static/css/main.2eab8f6c.css.map",
-    "main.eb205082.js.map": "/text-adventure-react/static/js/main.eb205082.js.map",
+    "main.d984414a.css.map": "/text-adventure-react/static/css/main.d984414a.css.map",
+    "main.f5fd32cf.js.map": "/text-adventure-react/static/js/main.f5fd32cf.js.map",
     "787.f8edd15d.chunk.js.map": "/text-adventure-react/static/js/787.f8edd15d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2eab8f6c.css",
-    "static/js/main.eb205082.js"
+    "static/css/main.d984414a.css",
+    "static/js/main.f5fd32cf.js"
   ]
 }
