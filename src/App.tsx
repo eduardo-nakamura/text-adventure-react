@@ -80,15 +80,15 @@ function App() {
 
 
   function commandSplit(str: string) {
-    var parts = str.split(" ");
-    var command = parts.shift();
-    var object = parts.join(' ');
+    let parts = str.split(" ");
+    let command = parts.shift();
+    let object = parts.join(' ');
     return [command, object];
   }
 
   function endGame() {
     setRunning(false)
-    var newActionRes: string[] = [];
+    let newActionRes: string[] = [];
     newActionRes.push(`Congratulations, you escaped the Dungeon!`)
     newActionRes.push(`Total Time: ${("0" + Math.floor((time / 60000) % 60)).slice(-2)}:${("0" + Math.floor((time / 1000) % 60)).slice(-2)}:${("0" + ((time / 10) % 100)).slice(-2)}`)
     newActionRes.push(`You scored ${score} points`)
@@ -96,7 +96,7 @@ function App() {
   }
 
   function tryToUse(obj: string) {
-    var newActionRes = ''
+    let newActionRes = ''
     const matches = inventory.find(s => s.includes(obj));
     if (matches) {
       switch (matches) {
@@ -147,7 +147,7 @@ function App() {
   }
 
   function printInventory() {
-    var newActionRes: string[] = [];
+    let newActionRes: string[] = [];
     newActionRes.push("You are carrying: ")
     if (inventory.length > 0) {
       inventory.forEach(function (item) {
@@ -160,22 +160,19 @@ function App() {
   }
 
   function describe(room: any, desc = 'short_description') {
-    var newActionRes: string[] = []
-    newActionRes.push(`You are in ${room[desc]}`)
-    //long_description
+    let newActionRes: string[] = []
+    newActionRes.push(`You are in ${room[desc]}`)    
     if (desc === 'long_description') {
-      var exits = Object.keys(room.exits);
+      let exits = Object.keys(room.exits);
       if (exits.length > 1) {
-        var last_exit = exits.pop();
+        let last_exit = exits.pop();
         newActionRes.push(`There are exits to the ${exits.join(', ')} and ${last_exit}`)
       } else {
         newActionRes.push(`There is an exit to the ${exits[0]}`)
       }
       room['contents'].map((item: string) => newActionRes.push(`There is a  ${item} here`))
     }
-
     newActionRes.push(emptyLine)
-    // setActionRes(oldArray => [...oldArray, ...newActionRes]);
     setActionRes(newActionRes);
   }
 
@@ -226,8 +223,8 @@ function App() {
   function getOneCommand() {
     let getLoc = getLocation(location)
     let command = commandSplit(action);
-    let verb = command[0];
-    let obj = command[1] ? command[1] : '';
+    let verb = command[0] ? command[0].toLowerCase() : '';
+    let obj = command[1] ? command[1].toLowerCase() : '';
     switch (verb) {
       case 'inventory':
         printInventory()
@@ -238,14 +235,13 @@ function App() {
       case 'get':
       case 'take':
         setMoves(moves + 1)
-        var newActionRes: string[] = []
-        var updateDungeon = [...dungeonObj] as any;
-        var itemUpdate = [...inventory] as any;
+        let newActionRes: string[] = []
+        let updateDungeon = [...dungeonObj] as any;
+        let itemUpdate = [...inventory] as any;
         let matchesCommand = obj.search('all');
         if (matchesCommand === 0) {
           if (room['contents'].length > 0) {
-            setScore(score + (room.contents.length * 10))
-            // eslint-disable-next-line array-callback-return
+            setScore(score + (room.contents.length * 10))            
             room.contents.map((item: string) => {
               itemUpdate.push(item)
               newActionRes.push(`You pick up the ${item}`)
@@ -256,25 +252,20 @@ function App() {
           } else {
             newActionRes.push(`There is nothing to take!`)
           }
-        } else {
-          // eslint-disable-next-line array-callback-return
+        } else {          
           room.contents.map((item: string) => {
-            let matches = item.search(obj);
-         
-            if (matches !== -1) {
-              
+            let matches = item.search(obj);         
+            if (matches !== -1) {              
               newActionRes.push(`You pick up the ${item}`)
               itemUpdate.push(item)
               setScore(score + 10)
               updateDungeon[getLoc]['contents'] = updateDungeon[getLoc]['contents'].filter((e: string) => e !== item);
             }
             setDungeonObj(updateDungeon)
-            setPlayer((prevState) => ({ ...prevState, inventory: itemUpdate }));
-          
+            setPlayer((prevState) => ({ ...prevState, inventory: itemUpdate }));          
           })
         }
         newActionRes.push(emptyLine)
-        // setActionRes(oldArray => [...oldArray, ...newActionRes]);
         setActionRes(newActionRes);
         break;
       case 'east':
@@ -297,16 +288,12 @@ function App() {
       case 'clear':
         setActionRes([])
         break;
+      case 'open':
       case 'use':
         setMoves(moves + 1)
         tryToUse(obj);
-        break;
-      case 'open':
-        setMoves(moves + 1)
-        tryToUse(obj);
-        break;
-      default:
-        // if (action) setActionRes(oldArray => [...oldArray, `You can't ${action}`]);
+        break;  
+      default:        
         if (action) setActionRes([`You can't ${action}`]);
         break;
     }
@@ -317,7 +304,9 @@ function App() {
         <p>Adventure Game</p>
         <p>Score: {score} Moves: {moves}</p>
       </div>
-
+      <div className="portrait">
+        <p>Use in Landscape Mode</p>
+      </div>
       <div className="container">
         <p>{`Simple text adventure - by Eduardo Issamu Nakamura - ${currentDate.getFullYear()}`}</p>
         <p style={{ paddingBottom: '20px' }}>{`Original project by Dethe Elza`} <a style={{ color: themes[theme].font }} href="https://hackmd.io/@dethe/r1eH-CMdS#Goal">https://hackmd.io/@dethe/r1eH-CMdS#Goal</a></p>
@@ -332,20 +321,9 @@ function App() {
             backgroundPositionY: themes[theme].yPos,
             backgroundPositionX: setXPos(),
           }}
-        />
-        {/* {room.contents.length}
-        {imgArr[getLocation(location)].img} */}
-        {/* {location === 'west room' && (
-          <img className='img-room' src={room.contents.length ? westRoomImg : westRoomEmptyImg} alt="" />
-        )}
-        {location === 'east room' && (
-          <img className='img-room' src={running ? eastRoomImg : eastRoomEmptyImg} alt="" />
-        )}
-        {location === 'centre room' && (
-          <img className='img-room' src={room.contents.length ? centerRoomImg : centerRoomEmptyImg} alt="" />
-        )} */}
+        />              
         {actionRes.map((row, index) => (
-          <p key={index} style={{ margin: '10px 0 10px' }}>{row}</p>
+          <p key={row} style={{ margin: '10px 0 10px' }}>{row}</p>
         ))}
         {running && (
           <>

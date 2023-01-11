@@ -1,21 +1,44 @@
-.App {
- padding: 10px;
- min-height: 100vh;
+@media screen and (max-width: 600px) and (orientation:portrait) {
+    .container {
+        display: none;
+    }
+    .portrait{
+        display: block;
+    }
 }
-.header-game{
+
+@media screen and (min-width: 601px) and (orientation:landscape) {
+    .container {
+        display: block;
+    }
+    .portrait{
+        display: none;
+    }
+}
+
+.App {
+    padding: 10px;
+    min-height: 100vh;
+}
+
+.header-game {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding: 0;    
+    padding: 0;
     margin: 0;
 }
-.header-game p{  
-    padding: 5px 20px;    
+
+.header-game p {
+    padding: 5px 20px;
     margin: 0;
 }
-.img-room{
-    width: 600px;
-    height: 400px;
+
+.img-room {
+    width: 100%;
+    max-width: 600px;
+    /* height: 400px; */
+    aspect-ratio: 3 / 2;
     border: 4px solid;
     background-size: 2400px 1600px;
     image-rendering: -webkit-optimize-contrast;
