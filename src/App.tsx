@@ -304,9 +304,9 @@ function App() {
         <p>Adventure Game</p>
         <p>Score: {score} Moves: {moves}</p>
       </div>
-      <div className="portrait">
+      {/* <div className="portrait">
         <p>Use in Landscape Mode</p>
-      </div>
+      </div> */}
       <div className="container">
         <p>{`Simple text adventure - by Eduardo Issamu Nakamura - ${currentDate.getFullYear()}`}</p>
         <p style={{ paddingBottom: '20px' }}>{`Original project by Dethe Elza`} <a style={{ color: themes[theme].font }} href="https://hackmd.io/@dethe/r1eH-CMdS#Goal">https://hackmd.io/@dethe/r1eH-CMdS#Goal</a></p>
